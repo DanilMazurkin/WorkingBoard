@@ -26,14 +26,15 @@ class ProfileController extends Controller
 
     	if ($request->hasFile("avatar")) {
 
-            $userData->createDirectoryForUser();
-            $userData->clearImagesInUserFolder();
+            $hasDirectory = $userData->createDirectoryForUser();
+            
+            if ($hasDirectory)
+                $userData->clearImagesInUserFolder();
 
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             $directory = $userData->getFolderUser();
             
-            $directory = storage_path('app/public').$directory;
             Image::make($avatar)->resize(300, 300)->save($directory.$filename);
             
             $userData->setPathForModel($filename);
