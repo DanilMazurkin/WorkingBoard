@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Auth;
 use Storage;
 use File;
@@ -13,58 +14,62 @@ class UserData extends Model
         'name', 'surname', 'patronymic', 'avatar', 'user_id'
     ];
 
-    private function scopeHasAvatar($query, $id) {
-    	return $query->where('user_id', $id)->where('avatar', NULL)->get();
+    public function clearImagesInUserFolder() {
+        
+        $directory = $this->getFolderUser();        
+
+        $files = Storage::disk('public')->allFiles($directory);
+        Storage::disk('public')->delete($files);
+    } 
+
+
+   	public function createDirectoryForUser() {
+   		
+   		$directory = $this->getFolderUser();
+
+   		if(!Storage::disk('public')->has($directory)) {     
+          Storage::disk('public')->makeDirectory($directory);
+          return 0;
+      } else 
+          return 1;
+
+
+   	}
+
+    public function getFolderUser() {
+      
+      $id = Auth::user()->id;
+      $directory = '/avatars/id'.$id.'/';   
+      
+      return $directory;
     }
 
-
-   	private function userHasAvatar($id) {
-   		
-   		$userData = UserData::hasAvatar($id);
-
-   		if (empty($userData->avatar)) 
-   			return 0;
-   		else 
-   			return 1;
-   	}
-
-   	private function createDirectoryForUser() {
-   		$id = Auth::user()->id;
-   		$directory = 'public/avatars/id'.$id.'/';
-   		
-   		if(!Storage::disk('local')->has($directory))
-   			Storage::makeDirectory($directory);
-
-   		return $directory;
-   	}
-
-   	
-   	private function uploadAvatar($path) {
-   		
-   		$directory = $this->createDirectoryForUser();
-   		$path = $directory.$path;	
-
-   		Storage::put($path);
- 		
-   	}
-
-
-    private function getPath($id_user) {
+    private function getPathFromModel($id_user) {
     	$path = UserData::select('avatar')->where('user_id', $id_user)->get();
-    	return $path;
+      return $path;
+    }
+
+    public function setPathForModel($path) {
+      $id = Auth::user()->id;
+      
+      $directory = $this->getFolderUser();
+      $directory = 'storage'.$directory;
+      $path = $directory.$path;
+     
+      UserData::updateOrInsert(['user_id' => $id], ['avatar' => $path]);
     }
 
    	public function getPathAvatarUser() {  		
    		
    		$id = Auth::user()->id;
-   		$path = $this->getPath($id);
-		
-   		if (empty($path->avatar)) {
+   		$path = $this->getPathFromModel($id);
+		  
+
+   		if (empty($path[0]->avatar)) {
    			$filePath = "storage/avatars/default/default.png";
    			return $filePath;
-   		}  else 
-   			return $path->avatar;
-
+   		} else 
+   			return $path[0]->avatar;
 
    	}
 }

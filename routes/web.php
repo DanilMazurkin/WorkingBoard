@@ -25,6 +25,7 @@ Route::group(['namespace' => 'User'], function () {
 	
 	Route::middleware(['auth'])->group(function () {
 		Route::get('/profile/{id}', "ProfileController@index")->name('profile');
+		Route::patch('/profile/{id}', "ProfileController@updateData")->name('profile_set');
 	});
 
 });
