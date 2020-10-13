@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['namespace' => 'User'], function () {
+Route::group(['namespace' => 'UserController'], function () {
 	
 	Route::middleware(['auth'])->group(function () {
 		Route::get('/profile/{id}', "ProfileController@index")->name('profile');
