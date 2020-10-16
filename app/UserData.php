@@ -37,6 +37,7 @@ class UserData extends Model
 
     public function getFolderUser() {
       
+
       $id = Auth::user()->id;
       $directory = 'storage/avatars/id'.$id.'/';   
       
@@ -57,17 +58,41 @@ class UserData extends Model
       UserData::updateOrInsert(['user_id' => $id], ['avatar' => $path]);
     }
 
-   	public function getPathAvatarUser() {  		
+    private function setDefaultPathForModel() {
+          
+        $id = Auth::user()->id;
+
+        $path = 'storage/avatars/default/default.png';
+        UserData::updateOrInsert(['user_id' => $id], ['avatar' => $path]);
+
+        return $path;
+    }
+
+   	public function getPathAvatarUser($id) {  		
    		
-   		$id = Auth::user()->id;
    		$path = $this->getPathFromModel($id);
 		  
 
    		if (empty($path->avatar)) {
-   			$filePath = "storage/avatars/default/default.png";
+        $filePath = $this->setDefaultPathForModel();
    			return $filePath;
    		} else 
    			return $path->avatar;
 
    	}
+
+
+    public function getFioUser($id) {
+        $fio = UserData::select('name', 'surname', 'patronymic')->where('user_id', $id)->first();
+        
+        if ($fio->name == "NULL" && $fio->surname == "NULL" && $fio->patronymic == "NULL")
+            return 0;
+        else 
+            return ['name' => $fio->name, 'surname' => $fio->surname, "patronymic" => $fio->patronymic];
+    }
+
+    public function setFioUser($id, $name, $surname, $patronymic) {
+        UserData::updateOrInsert(['user_id' => $id], ['name' => $name, 'surname' => $surname, 
+                                                      'patronymic' => $patronymic]);
+    }
 }

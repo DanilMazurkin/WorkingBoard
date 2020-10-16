@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function checkUserInSystem($id) {
+        $user = User::find($id);
+        
+        if (empty($user))
+            return 0;
+        else 
+            return 1;
+    }
 }

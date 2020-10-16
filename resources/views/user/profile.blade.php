@@ -4,15 +4,25 @@
 
 <div class="container">
 
-	  	@if ($errors->first('avatar')) 
-	        <div class="row justify-content-center">
-	            <div class="col-md-12">
-	                <div class="alert alert-danger" role="alert">
-	                    {{ $errors->first('avatar') }}
-	                </div>
-	            </div>
-	        </div>
-   		 @endif
+
+
+	  	@if ($errors->any())
+			  <div class="alert alert-danger">
+			     <ul>
+			        @foreach ($errors->all() as $error)
+			           <li>{{ $error }}</li>
+			        @endforeach
+			     </ul>
+			     @if ($errors->has('email'))
+			     @endif
+			  </div>
+		@endif
+   		
+   		@if ($fio == 0)
+   			{{ __('Установите ваши ФИО') }}
+   		@else 
+   			{{ $fio['surname'] }} {{ $fio['name'] }}  {{ $fio['patronymic'] }}
+   		@endif	
 
 		@if (isset($pathAvatar))
 			<div class="row mt-2">
@@ -33,13 +43,49 @@
 
 			        	 	  	<button class="btn col-md-12 btn-primary mt-1"> Установить новый аватар </button>
 			        	 </form>
+			        	
+			        	<form method="POST" action="{{ route('profile_fio', ['id' => Auth::user()->id]) }}">
+			        		@csrf
+					        	<div class="row mt-2">
+							    	<div class="col-md-8">
+							    		<div class="input-group input-group-sm mb-3">
+										  <input name="surname" type="text" class="form-control" placeholder="Фамилия" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+										</div>
+							    	</div>
+							    </div>
+
+							    <div class="row mt-2">
+							    	<div class="col-md-8">
+							    		<div class="input-group input-group-sm mb-3">
+										  <input name="name" type="text" class="form-control" placeholder="Имя" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+										</div>
+							    	</div>
+							    </div>
+
+							    <div class="row mt-2">
+							    	<div class="col-md-8">
+							    		<div class="input-group input-group-sm mb-3">
+										  <input name="patronymic" nametype="text" class="form-control" placeholder="Отчество" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+										</div>
+							    	</div>
+							    </div>
+
+
+							    <div class="row mt-2">
+							    	<div class="col-md-4">
+							    		<button type="submit" class="btn btn-primary"> Установить </button>
+							    	</div>
+							    </div>
+						</form>
+
+
 			        </div>
 			    @endif
+
+			  
 		    </div>
         @endif
-
-
-
+     
 
 </div>
 

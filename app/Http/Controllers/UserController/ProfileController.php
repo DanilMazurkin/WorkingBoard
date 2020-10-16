@@ -4,8 +4,10 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\File\Avatars;
+use App\Http\Requests\File\FormAvatars;
+use App\Http\Requests\Fio\FormFio;
 use App\UserData;
+use App\User;
 use Auth;
 use Image;
 
@@ -13,14 +15,22 @@ class ProfileController extends Controller
 {
     public function index($id) {
 
- 		$userData = new UserData;
- 		$pathAvatar = $userData->getPathAvatarUser();
+        $user = new User;
+        $hasUser = $user->checkUserInSystem($id);
 
-    	return view('user.profile', ['pathAvatar' => $pathAvatar,
-    								'id' => $id]);
+        if ($hasUser) {
+            $userData = new UserData;
+     		$pathAvatar = $userData->getPathAvatarUser($id);
+            $fio = $userData->getFioUser($id);
+            
+        	return view('user.profile', ['pathAvatar' => $pathAvatar,
+        								'id' => $id, 'fio' => $fio]);
+        } else 
+            return view('user.error');
+
     }
 
-    public function updateData(Avatars $request, $id) {
+    public function updateData(FormAvatars $request, $id) {
     	
     	$userData = new UserData;
 
@@ -44,4 +54,16 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => Auth::user()->id]);
     }
 
+
+    public function setFio(FormFio $request, $id) {
+        $userData = new UserData;
+        
+        $name = $request->input('name');
+        $surname = $request->input('surname');
+        $patronymic = $request->input('patronymic');
+        
+        $userData->setFioUser($id, $name, $surname, $patronymic);
+
+        return redirect()->route('profile', ['id' => $id]);
+    }
 }
