@@ -21,6 +21,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback'); 
+
+
 Route::group(['namespace' => 'UserController'], function () {
 	
 	Route::middleware(['auth'])->group(function () {

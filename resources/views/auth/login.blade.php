@@ -56,15 +56,18 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                             </div>
                         </div>
+
                     </form>
+
+                     <div class="row mt-2">
+                                <div class="col-md-12 row-block">
+                                    <a class="btn btn-lg btn-primary btn-block" href="{{ url('auth/google') }}">
+                                        <strong>Login With Google</strong>
+                                    </a>
+                                </div>
+                    </div>
                 </div>
             </div>
         </div>
