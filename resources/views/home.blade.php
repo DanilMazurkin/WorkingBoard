@@ -2,22 +2,53 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    
+    @if (empty($data_user))
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger">
+                            Установите ваши настройки в профиле!
                         </div>
-                    @endif
+                    </div>
+                </div>
+    @endif
 
-                    {{ __('You are logged in!') }}
+    @foreach ($users as $user)
+        <div class="row justify-content-center mt-2">
+            <div class="card col-md-6">
+                  
+                  <div class="card-header">
+                    ID:    {{ $user->id }}
+                    Login: {{ $user->name }}
+                  </div>
+                 
+                  <div class="card-body">
+                    <h5 class="card-title">
+                        @if ($fio != 0)
+                            {{ $user->userdata->surname }} 
+                            {{ $user->userdata->name }} 
+                            {{ $user->userdata->patronymic }}
+                        @else
+                            {{ __('У пользователя не установлен ФИО') }}
+                        @endif
+                    </h5>
+
+                    <img class="img-thumbnail" src="{{ asset($avatar) }}" alt="Card image cap">  
+        
+                  </div>
+
+                <div class="card-footer text-muted">
+                    <button class="btn btn-warning"> Начать отслеживать </button>
                 </div>
             </div>
         </div>
+    @endforeach
+
+    <div class="row mt-2 justify-content-center">
+        {{ $users->links() }}
     </div>
+
+
+
 </div>
 @endsection

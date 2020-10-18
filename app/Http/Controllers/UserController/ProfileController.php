@@ -13,7 +13,8 @@ use Image;
 
 class ProfileController extends Controller
 {
-    public function index($id) {
+    public function index($id) 
+    {
 
         $user = new User;
         $hasUser = $user->checkUserInSystem($id);
@@ -30,11 +31,13 @@ class ProfileController extends Controller
 
     }
 
-    public function updateData(FormAvatars $request, $id) {
+    public function updateData(FormAvatars $request, $id) 
+    {
     	
     	$userData = new UserData;
 
-    	if ($request->hasFile("avatar")) {
+    	if ($request->hasFile("avatar")) 
+        {
 
             $hasDirectory = $userData->createDirectoryForUser();
             
@@ -55,7 +58,8 @@ class ProfileController extends Controller
     }
 
 
-    public function setFio(FormFio $request, $id) {
+    public function setFio(FormFio $request, $id) 
+    {
         $userData = new UserData;
         
         $name = $request->input('name');

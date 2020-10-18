@@ -28,7 +28,8 @@ class FormAvatars extends FormRequest
         ];
     }
 
-    public function messages() {
+    public function messages() 
+    {
         return [
             'avatar.mimes' => 'Изображение должно быть типа bmp, png',
         ];

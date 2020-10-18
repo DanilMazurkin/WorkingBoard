@@ -30,7 +30,8 @@ class FormFio extends FormRequest
         ];
     }
 
-    public function messages() {
+    public function messages() 
+    {
         return [
             'name.required' => 'Поле имя должно быть заполнено.',
             'surname.required' => 'Поле фамилия должно быть заполнено.',

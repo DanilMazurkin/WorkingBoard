@@ -18,7 +18,6 @@ class CreateUserData extends Migration
             $table->string('surname')->nullable()->default('NULL');
             $table->string('patronymic')->nullable()->default('NULL');
             $table->string('avatar')->nullable()->default('NULL');
-
             $table->bigInteger('user_id')->nullable()->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
         });

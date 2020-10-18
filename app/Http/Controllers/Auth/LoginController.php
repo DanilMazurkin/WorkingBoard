@@ -9,6 +9,7 @@ use Socialite;
 use Auth;
 use Exception;
 use App\User;
+use App\UserData;
 
 class LoginController extends Controller
 {
@@ -43,11 +44,13 @@ class LoginController extends Controller
     }
 
 
-    public function redirectToGoogle() {
+    public function redirectToGoogle() 
+    {
         return Socialite::driver('google')->stateless()->redirect();
     }
     
-    public function handleGoogleCallback() {
+    public function handleGoogleCallback() 
+    {
         
         try {
             
@@ -55,14 +58,19 @@ class LoginController extends Controller
             $finduser = User::where('google_id', $user->id)->first();
 
 
-            if ($finduser) {
-                Auth::login($finduser);
-                return redirect()->route('home');
+            if ($finduser) 
+            {
+                 Auth::login($finduser);
+                 return redirect()->route('home');
             } else {
                 $newUser = User::create(['name' => $user->name, 
-                                        'email' => $user->email, 
-                                        'google_id' => $user->id]);
+                                         'email' => $user->email, 
+                                         'google_id' => $user->id]);
                 Auth::login($newUser);
+
+                $id = Auth::user()->id;
+                $userdata = UserData::create(['user_id' => $id, 'avatar' => $user->avatar]);
+
                 return redirect()->route('home');
             }
             

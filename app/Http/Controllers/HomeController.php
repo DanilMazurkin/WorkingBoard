@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\UserData;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -22,7 +25,14 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    {   
+        $id = Auth::user()->id;
+        $users = User::paginate(5);
+
+        $userdata = new UserData;
+        $fio = $userdata->getFioUser($id);
+        $path = $userdata->getPathAvatarUser($id);
+
+        return view('home', ['users' => $users, 'fio' => $fio, 'avatar' => $path]);
     }
 }

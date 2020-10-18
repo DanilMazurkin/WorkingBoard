@@ -11,10 +11,14 @@ use File;
 class UserData extends Model
 {
     protected $fillable = [
-        'name', 'surname', 'patronymic', 'avatar', 'user_id'
+        'name', 'surname', 'patronymic', 'avatar', 'user_id', 'settings_set'
     ];
 
-    public function clearImagesInUserFolder() {
+    public $timestamps = false;
+
+
+    public function clearImagesInUserFolder() 
+    {
         
         $directory = $this->getFolderUser();        
 
@@ -23,11 +27,13 @@ class UserData extends Model
     } 
 
 
-   	public function createDirectoryForUser() {
+   	public function createDirectoryForUser() 
+    {
    		
    		$directory = $this->getFolderUser();
 
-   		if(!Storage::disk('public')->has($directory)) { 
+   		if(!Storage::disk('public')->has($directory)) 
+      { 
           Storage::disk('public')->makeDirectory($directory);
           return 0;
       } else 
@@ -35,7 +41,13 @@ class UserData extends Model
       
    	}
 
-    public function getFolderUser() {
+    public function user() 
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getFolderUser() 
+    {
       
 
       $id = Auth::user()->id;
@@ -44,12 +56,14 @@ class UserData extends Model
       return $directory;
     }
 
-    private function getPathFromModel($id_user) {
+    private function getPathFromModel($id_user) 
+    {
     	$path = UserData::select('avatar')->where('user_id', $id_user)->first();
       return $path;
     }
 
-    public function setPathForModel($path) {
+    public function setPathForModel($path) 
+    {
       $id = Auth::user()->id;
       
       $directory = $this->getFolderUser();
@@ -58,7 +72,8 @@ class UserData extends Model
       UserData::updateOrInsert(['user_id' => $id], ['avatar' => $path]);
     }
 
-    private function setDefaultPathForModel() {
+    private function setDefaultPathForModel() 
+    {
           
         $id = Auth::user()->id;
 
@@ -68,12 +83,14 @@ class UserData extends Model
         return $path;
     }
 
-   	public function getPathAvatarUser($id) {  		
+   	public function getPathAvatarUser($id) 
+    {  		
    		
    		$path = $this->getPathFromModel($id);
 		  
 
-   		if (empty($path->avatar)) {
+   		if (empty($path->avatar)) 
+      {
         $filePath = $this->setDefaultPathForModel();
    			return $filePath;
    		} else 
@@ -82,7 +99,9 @@ class UserData extends Model
    	}
 
 
-    public function getFioUser($id) {
+    public function getFioUser($id) 
+    {
+        
         $fio = UserData::select('name', 'surname', 'patronymic')->where('user_id', $id)->first();
         
         if ($fio->name == "NULL" && $fio->surname == "NULL" && $fio->patronymic == "NULL")
@@ -91,7 +110,8 @@ class UserData extends Model
             return ['name' => $fio->name, 'surname' => $fio->surname, "patronymic" => $fio->patronymic];
     }
 
-    public function setFioUser($id, $name, $surname, $patronymic) {
+    public function setFioUser($id, $name, $surname, $patronymic) 
+    {
         UserData::updateOrInsert(['user_id' => $id], ['name' => $name, 'surname' => $surname, 
                                                       'patronymic' => $patronymic]);
     }
