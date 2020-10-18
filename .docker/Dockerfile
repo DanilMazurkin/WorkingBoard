@@ -2,7 +2,7 @@ FROM php:7.4.1-apache
 
 USER root
 
-WORKDIR /var/www/html
+WORKDIR /var/www/
 
 RUN apt-get update && apt-get install -y \
         libpng-dev \
