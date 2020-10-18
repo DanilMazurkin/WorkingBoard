@@ -102,12 +102,21 @@ class UserData extends Model
     public function getFioUser($id) 
     {
         
-        $fio = UserData::select('name', 'surname', 'patronymic')->where('user_id', $id)->first();
-        
-        if ($fio->name == "NULL" && $fio->surname == "NULL" && $fio->patronymic == "NULL")
-            return 0;
-        else 
-            return ['name' => $fio->name, 'surname' => $fio->surname, "patronymic" => $fio->patronymic];
+        $userdata = UserData::where('user_id', $id)->first();
+           
+        if ($userdata) {
+          $fio = UserData::select(['name', 'surname', 'patronymic'])->where('user_id', $id)->first();
+          
+          if (empty($fio->name) && empty($fio->surname) && empty($fio->patronymic))
+              return 0;
+          else 
+          { 
+                return ['name' => $fio->name, 'surname' => $fio->surname, "patronymic" => $fio->patronymic];
+          }
+
+        } else 
+          return 0;
+
     }
 
     public function setFioUser($id, $name, $surname, $patronymic) 

@@ -14,9 +14,9 @@ class CreateUserData extends Migration
     public function up()
     {
         Schema::create('user_data', function (Blueprint $table) {
-            $table->string('name')->nullable()->default('NULL');
-            $table->string('surname')->nullable()->default('NULL');
-            $table->string('patronymic')->nullable()->default('NULL');
+            $table->string('name')->nullable()->default('');
+            $table->string('surname')->nullable()->default('');
+            $table->string('patronymic')->nullable()->default('');
             $table->string('avatar')->nullable()->default('NULL');
             $table->bigInteger('user_id')->nullable()->unsigned();
             $table->foreign('user_id')->references('id')->on('users');

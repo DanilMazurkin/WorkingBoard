@@ -51,6 +51,26 @@
                             </div>
                         </div>
 
+
+                        @if ($errors->has('g-recaptcha-response'))
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-4">
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                    </span>
+                                </div>
+                            </div>
+                        @endif
+
+                        
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                {!! NoCaptcha::display() !!}
+                            </div>
+                        </div>
+
+
+
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -80,4 +100,8 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+@endpush
+    
+@push('scripts')
+     {!! NoCaptcha::renderJs() !!}
 @endpush

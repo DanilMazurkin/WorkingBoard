@@ -31,8 +31,8 @@ class HomeController extends Controller
 
         $userdata = new UserData;
         $fio = $userdata->getFioUser($id);
-        $path = $userdata->getPathAvatarUser($id);
 
-        return view('home', ['users' => $users, 'fio' => $fio, 'avatar' => $path]);
+
+        return view('home', ['users' => $users, 'fio' => $fio, 'userdata' => $userdata]);
     }
 }

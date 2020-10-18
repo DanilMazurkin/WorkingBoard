@@ -19,10 +19,22 @@
 		@endif
    		
    		@if ($fio == 0)
-   			{{ __('Установите ваши ФИО') }}
+   			<div class="row">
+   				<div class="col-md-4">	
+   					{{ __('Установите ваши ФИО') }}
+   				</div>
+   			</div>
    		@else 
    			{{ $fio['surname'] }} {{ $fio['name'] }}  {{ $fio['patronymic'] }}
    		@endif	
+
+   		@if (isset($hasGoogle)) 
+   			<div class="row">
+   				<div class="col-md-4">
+   					{{ __('Пользователь авторизирован через Google') }}
+   				</div>
+   			</div>
+   		@endif
 
 		@if (isset($pathAvatar))
 			<div class="row mt-2">

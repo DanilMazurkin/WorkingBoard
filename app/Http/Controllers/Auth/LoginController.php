@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\User;
+use App\UserData;
+
 use Socialite;
 use Auth;
 use Exception;
-use App\User;
-use App\UserData;
+
 
 class LoginController extends Controller
 {
@@ -42,6 +45,17 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->username() => 'required',
+            'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha',
+        ]);
+    }
+
+
 
 
     public function redirectToGoogle() 

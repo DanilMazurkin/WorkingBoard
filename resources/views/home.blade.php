@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     
-    @if (empty($data_user))
+    @if (empty($userdata->name))
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="alert alert-danger">
-                            Установите ваши настройки в профиле!
+                            Установите ФИО в профиле!
                         </div>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                  
                   <div class="card-body">
                     <h5 class="card-title">
-                        @if ($fio != 0)
+                        @if ($fio !=  0)
                             {{ $user->userdata->surname }} 
                             {{ $user->userdata->name }} 
                             {{ $user->userdata->patronymic }}
@@ -33,12 +33,13 @@
                         @endif
                     </h5>
 
-                    <img class="img-thumbnail" src="{{ asset($avatar) }}" alt="Card image cap">  
+                    <img class="img-thumbnail" src="{{ asset($userdata->getPathAvatarUser($user->id)) }}" alt="Card image cap">  
         
                   </div>
 
                 <div class="card-footer text-muted">
                     <button class="btn btn-warning"> Начать отслеживать </button>
+                    <button class="btn btn-primary"> Просмотреть объявления </button>
                 </div>
             </div>
         </div>

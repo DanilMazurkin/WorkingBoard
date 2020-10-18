@@ -47,6 +47,11 @@ class User extends Authenticatable
             return 1;
     }
 
+    public function checkUserFromGoogle($id) {
+        $user = User::find($id);
+        return $user->google_id;
+    }
+
     public function userdata() {
         return $this->hasOne(UserData::class);
     }

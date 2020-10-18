@@ -20,12 +20,15 @@ class ProfileController extends Controller
         $hasUser = $user->checkUserInSystem($id);
 
         if ($hasUser) {
+
             $userData = new UserData;
      		$pathAvatar = $userData->getPathAvatarUser($id);
             $fio = $userData->getFioUser($id);
-            
+            $hasGoogle = $user->checkUserFromGoogle($id);
+
         	return view('user.profile', ['pathAvatar' => $pathAvatar,
-        								'id' => $id, 'fio' => $fio]);
+        								'id' => $id, 'fio' => $fio,
+                                        'hasGoogle' => $hasGoogle]);
         } else 
             return view('user.error');
 
