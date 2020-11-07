@@ -28,9 +28,11 @@ Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
 Route::group(['namespace' => 'UserController'], function () {
 	
 	Route::middleware(['auth'])->group(function () {
-		Route::get('/profile/{id}', "ProfileController@index")->name('profile');
-		Route::post('/profile/{id}', "ProfileController@setFio")->name('profile_fio');
-		Route::patch('/profile/{id}', "ProfileController@updateData")->name('profile_set');
+		
+		Route::get('/profile/{user}', "ProfileController@index")->name('profile');
+		Route::post('/profile', "ProfileController@setFio")->name('profile_fio');
+		Route::patch('/profile', "ProfileController@setAvatar")->name('profile_update');
+	
 	});
 
 });

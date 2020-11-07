@@ -65,10 +65,7 @@ class UserData extends Model
     public function setPathForModel($path) 
     {
       $id = Auth::user()->id;
-      
-      $directory = $this->getFolderUser();
-      $path = $directory.$path;
-     
+
       UserData::updateOrInsert(['user_id' => $id], ['avatar' => $path]);
     }
 

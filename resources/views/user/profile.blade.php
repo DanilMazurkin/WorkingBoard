@@ -53,7 +53,7 @@
 
 
 					    	<div class="card-body">	
-					        	 <form method="POST" enctype="multipart/form-data">
+					        	 <form method="POST" enctype="multipart/form-data" action="{{ route('profile_update') }}">
 					        	 	  @csrf     
 					        	 	  {{ method_field('PATCH') }}                             
 									  <div class="custom-file">

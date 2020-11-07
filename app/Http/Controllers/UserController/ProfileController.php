@@ -13,10 +13,10 @@ use Image;
 
 class ProfileController extends Controller
 {
-    public function index($id) 
+    public function index(User $user) 
     {
 
-        $user = new User;
+        $id = $user->id;
         $hasUser = $user->checkUserInSystem($id);
 
         if ($hasUser) {
@@ -34,10 +34,13 @@ class ProfileController extends Controller
 
     }
 
-    public function updateData(FormAvatars $request, $id) 
+    public function setAvatar(FormAvatars $request) 
     {
     	
     	$userData = new UserData;
+
+        $id = Auth::user()->id;
+        $user = User::find($id);
 
     	if ($request->hasFile("avatar")) 
         {
@@ -50,27 +53,32 @@ class ProfileController extends Controller
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             $directory = $userData->getFolderUser();
+            $path = $directory.$filename;
+
+            Image::make($avatar)->resize(300, 300)->save(public_path($directory.$filename));
             
-            Image::make($avatar)->resize(300, 300)->save($directory.$filename);
-            
-            $userData->setPathForModel($filename);
+            $userData->setPathForModel($path);
 
     	}
 
-        return redirect()->route('profile', ['id' => Auth::user()->id]);
+        return redirect()->route('profile', ['user' => $user]);
     }
 
 
-    public function setFio(FormFio $request, $id) 
+    public function setFio(FormFio $request) 
     {
         $userData = new UserData;
-        
+        $id = Auth::user()->id;
+
         $name = $request->input('name');
         $surname = $request->input('surname');
         $patronymic = $request->input('patronymic');
         
         $userData->setFioUser($id, $name, $surname, $patronymic);
+        
+        $user = User::find($id);
 
-        return redirect()->route('profile', ['id' => $id]);
+
+        return redirect()->route('profile', ['user' => $user]);
     }
 }
