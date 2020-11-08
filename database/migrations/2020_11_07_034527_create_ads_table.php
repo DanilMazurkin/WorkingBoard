@@ -14,9 +14,10 @@ class CreateAdsTable extends Migration
     public function up()
     {
         Schema::create('ads', function (Blueprint $table) {
-            $table->string('name_ad');
-            $table->longText('text_ad');
-            $table->string('image_ad');
+            $table->id();
+            $table->string('name');
+            $table->longText('text');
+            $table->string('image');
             $table->bigInteger('user_id')->nullable()->unsigned();
             $table->foreign('user_id')->references('id')->on('users'); 
         });

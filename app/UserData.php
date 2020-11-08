@@ -51,7 +51,7 @@ class UserData extends Model
       
 
       $id = Auth::user()->id;
-      $directory = 'storage/avatars/id'.$id.'/';   
+      $directory = 'avatars/id'.$id.'/';   
       
       return $directory;
     }
@@ -74,7 +74,7 @@ class UserData extends Model
           
         $id = Auth::user()->id;
 
-        $path = 'storage/avatars/default/default.png';
+        $path = 'avatars/default/default.png';
         UserData::updateOrInsert(['user_id' => $id], ['avatar' => $path]);
 
         return $path;

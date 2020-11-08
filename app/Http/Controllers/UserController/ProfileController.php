@@ -8,6 +8,7 @@ use App\Http\Requests\File\FormAvatars;
 use App\Http\Requests\Fio\FormFio;
 use App\UserData;
 use App\User;
+use Storage;
 use Auth;
 use Image;
 
@@ -55,7 +56,8 @@ class ProfileController extends Controller
             $directory = $userData->getFolderUser();
             $path = $directory.$filename;
 
-            Image::make($avatar)->resize(300, 300)->save(public_path($directory.$filename));
+            $image = Image::make($avatar)->fit(300);
+            $store = Storage::disk('public')->put($path, $image);                      
             
             $userData->setPathForModel($path);
 

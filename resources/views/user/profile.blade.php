@@ -38,8 +38,9 @@
 
 		@if (isset($pathAvatar))
 			<div class="row mt-2">
+
 		        <div class="col-md-4">
-		        		 <img class="img-thumbnail" src= "{{ asset($pathAvatar) }}" alt="Card image cap">  
+		        		 <img class="img-thumbnail" src= "{{ Storage::disk('public')->get($pathAvatar) }}" alt="Card image cap">  
 		        </div>
 
 		        @if (Auth::user()->id == $id)
