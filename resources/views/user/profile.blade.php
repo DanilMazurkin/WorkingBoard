@@ -36,12 +36,15 @@
    			</div>
    		@endif
 
-		@if (isset($pathAvatar))
-			<div class="row mt-2">
+		<div class="row mt-2">
 
-		        <div class="col-md-4">
-		        		 <img class="img-thumbnail" src= "{{ Storage::disk('public')->get($pathAvatar) }}" alt="Card image cap">  
-		        </div>
+		    @if ($user->checkUserFromGoogle($id))
+                <img class="img-thumbnail" src="{{ $userdata->getPathAvatarUser($id) }}" alt="Card image cap">  
+            @else
+            	<img class="img-thumbnail" src="{{ asset('storage/'.$userdata->getPathAvatarUser($id)) }}">
+      		@endif
+
+
 
 		        @if (Auth::user()->id == $id)
 			        <div class="col-md-8">
@@ -117,7 +120,6 @@
 
 			  
 		    </div>
-        @endif
      
 
 </div>

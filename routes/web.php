@@ -39,3 +39,4 @@ Route::group(['namespace' => 'UserController'], function () {
 	});
 
 });
+

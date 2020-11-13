@@ -49,7 +49,11 @@ class User extends Authenticatable
 
     public function checkUserFromGoogle($id) {
         $user = User::find($id);
-        return $user->google_id;
+
+        if (!empty($user->google_id))
+            return true;
+        else
+            return false;
     }
 
     public function userdata() {

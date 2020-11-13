@@ -11,6 +11,7 @@ use App\User;
 use Storage;
 use Auth;
 use Image;
+use File;
 
 class ProfileController extends Controller
 {
@@ -19,17 +20,19 @@ class ProfileController extends Controller
 
         $id = $user->id;
         $hasUser = $user->checkUserInSystem($id);
+        $user = new User;
 
         if ($hasUser) {
 
             $userData = new UserData;
-     		$pathAvatar = $userData->getPathAvatarUser($id);
             $fio = $userData->getFioUser($id);
             $hasGoogle = $user->checkUserFromGoogle($id);
 
-        	return view('user.profile', ['pathAvatar' => $pathAvatar,
+
+        	return view('user.profile', ['userdata' => $userData,
         								'id' => $id, 'fio' => $fio,
-                                        'hasGoogle' => $hasGoogle]);
+                                        'user' => $user
+                                        ]);
         } else 
             return view('user.error');
 
@@ -56,14 +59,15 @@ class ProfileController extends Controller
             $directory = $userData->getFolderUser();
             $path = $directory.$filename;
 
-            $image = Image::make($avatar)->fit(300);
-            $store = Storage::disk('public')->put($path, $image);                      
-            
+
+
+            $store = Storage::disk('public')->put($path, File::get($avatar));                      
+
             $userData->setPathForModel($path);
 
     	}
 
-        return redirect()->route('profile', ['user' => $user]);
+       return redirect()->route('profile', ['user' => $user]);
     }
 
 

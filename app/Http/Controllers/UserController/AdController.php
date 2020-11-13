@@ -55,8 +55,7 @@ class AdController extends Controller
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             $directory = $ad->getFolderAd();
             $path = $directory.$filename;
-            $image = Image::make($image)->fit(300);
-            $store = Storage::disk('public')->put($path, $image);            
+            $store = Storage::disk('public')->put($path, File::get($image));            
            
             $ad->createAd($text, $header, $path);
         } else

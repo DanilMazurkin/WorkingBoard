@@ -33,7 +33,13 @@
                         @endif
                     </h5>
 
-                    <img class="img-thumbnail" src="{{ asset($userdata->getPathAvatarUser($user->id)) }}" alt="Card image cap">  
+                        @if ($user->checkUserFromGoogle($user->id))
+
+                            <img class="img-thumbnail" src="{{ $userdata->getPathAvatarUser($user->id)                            
+                            }}" alt="Card image cap">  
+                        @else
+                            <img class="img-thumbnail" src="{{ asset('storage/'.$userdata->getPathAvatarUser($user->id)) }}">
+                        @endif
         
                   </div>
 

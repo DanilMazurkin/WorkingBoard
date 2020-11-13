@@ -80,11 +80,11 @@ class UserData extends Model
         return $path;
     }
 
+
    	public function getPathAvatarUser($id) 
     {  		
    		
    		$path = $this->getPathFromModel($id);
-		  
 
    		if (empty($path->avatar)) 
       {
@@ -107,9 +107,8 @@ class UserData extends Model
           if (empty($fio->name) && empty($fio->surname) && empty($fio->patronymic))
               return 0;
           else 
-          { 
-                return ['name' => $fio->name, 'surname' => $fio->surname, "patronymic" => $fio->patronymic];
-          }
+              return ['name' => $fio->name, 'surname' => $fio->surname, "patronymic" => $fio->patronymic];
+    
 
         } else 
           return 0;

@@ -30,6 +30,7 @@ class HomeController extends Controller
         $users = User::paginate(5);
 
         $userdata = new UserData;
+        $user = new User;
         $fio = $userdata->getFioUser($id);
 
 
