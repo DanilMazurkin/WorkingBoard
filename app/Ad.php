@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 use Auth;
 use Storage;
 
 class Ad extends Model
 {
-	protected $fillable = [
+	  protected $fillable = [
         'name', 'text', 'image', 'user_id'
     ];    
 
@@ -17,7 +18,7 @@ class Ad extends Model
     public function createAd($header, $text, $path = "NULL") {
     	$id = Auth::user()->id;
 
-      	Ad::updateOrInsert(['user_id' => $id], ['name' => $header, 'text' => $text, 'image' => $path]);	
+      Ad::insert(['user_id' => $id, 'name' => $header, 'text' => $text, 'image' => $path]);	
     }
 
 
@@ -42,4 +43,17 @@ class Ad extends Model
       return $directory;
    	}
 
+    public function getAdsUser($id) {
+        $user = User::find($id);
+        $ads = $user->ads;
+
+        return $ads;        
+    }
+
+
+    public function user() {
+      return $this->belongsTo(User::class);
+    }
 }
+
+

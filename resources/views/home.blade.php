@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     
-    @if (empty($userdata->name))
+    @if (empty($ame))
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="alert alert-danger">
@@ -45,7 +45,11 @@
 
                 <div class="card-footer text-muted">
                     <button class="btn btn-warning"> Начать отслеживать </button>
-                    <button class="btn btn-primary"> Просмотреть объявления </button>
+
+                    <form method="GET" action="{{ route('view_ads', $user->id) }}">
+                        <input type="hidden" value="{{ $user->id  }}"/> 
+                        <button class="btn btn-primary"> Просмотреть объявления </button>
+                    </form>
                 </div>
             </div>
         </div>

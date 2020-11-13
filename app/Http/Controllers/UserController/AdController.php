@@ -7,6 +7,7 @@ use App\Http\Requests\Ads\FormAd;
 use Illuminate\Http\Request;
 use Image;
 use Storage;
+use File;
 use App\Ad;
 use App\UserData;
 
@@ -20,7 +21,8 @@ class AdController extends Controller
      */
     public function index()
     {
-        //
+
+
     }
 
     /**
@@ -52,7 +54,7 @@ class AdController extends Controller
             $ad->createDirectoryForAd();
             $image = $request->file('image');
             
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            $filename = time() . '.' . $image->getClientOriginalExtension();
             $directory = $ad->getFolderAd();
             $path = $directory.$filename;
             $store = Storage::disk('public')->put($path, File::get($image));            
@@ -73,7 +75,12 @@ class AdController extends Controller
      */
     public function show($id)
     {
-        //
+        $ad = new Ad;
+
+        $ads = $ad->getAdsUser($id);
+
+
+        return view('user.ads', ['ads' => $ads, 'ad' => $ad]);
     }
 
     /**

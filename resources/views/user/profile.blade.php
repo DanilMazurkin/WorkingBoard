@@ -18,13 +18,7 @@
 			  </div>
 		@endif
    		
-   		@if ($fio == 0)
-   			<div class="row">
-   				<div class="col-md-4">	
-   					{{ __('Установите ваши ФИО') }}
-   				</div>
-   			</div>
-   		@else 
+   		@if ($fio != 0) 
    			{{ $fio['surname'] }} {{ $fio['name'] }}  {{ $fio['patronymic'] }}
    		@endif	
 
@@ -40,13 +34,13 @@
 
 		    @if ($user->checkUserFromGoogle($id))
                 <img class="img-thumbnail" src="{{ $userdata->getPathAvatarUser($id) }}" alt="Card image cap">  
-            @else
+		   	@else
             	<img class="img-thumbnail" src="{{ asset('storage/'.$userdata->getPathAvatarUser($id)) }}">
       		@endif
 
 
 
-		        @if (Auth::user()->id == $id)
+		        @if (Auth::user()->id == $id && !$user->checkUserFromGoogle($id))
 			        <div class="col-md-8">
 
 					    <div class="card">   
