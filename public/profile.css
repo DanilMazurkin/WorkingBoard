@@ -1,0 +1,10 @@
+.block-info {
+	background-color: #00BD9D;
+	height: 150px;
+}
+
+.block-text {
+	color: #FFFFFF;
+	font-family: 'Nunito', sans-serif;
+	font-size: 1.6em;
+}

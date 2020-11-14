@@ -2,39 +2,47 @@
 
 @section('content')
 	 
-   <div class="container">
+   <div class="container-fluid">
     
       @if (count($ads) == 0)
-          <div class="row justify-content-center mt-2">
-              <div class="col-md-12">
-                {{ __('У полльзователя нет объявлений') }}
+          <div class="row justify-content-center">
+              <div class="col-md-12 block-info">
+                  <p class="block-text pl-5 pt-5"> {{ __('У пользователя нет созданных объявлений') }} </p>
               </div>
           </div>
+      @else
+        <div class="row justify-content-center">
+              <div class="col-md-12 block-info">
+                  <p class="block-text pl-5 pt-5"> {{ __('Объявления пользователя') }} </p>
+              </div>
+        </div>
       @endif
 
+      <div class="row justify-content-center mt-2">
 
     	@foreach ($ads as $ad)
-    		<div class="row justify-content-center mt-2">
-                <div class="card col-md-6">
-                      
-                      <div class="card-header">
-                        Header: {{ $ad->name }}
-                      </div>
-                     
-                      <div class="card-body">
-                        <h5 class="card-title">
-                           {{ $ad->text }}
-                        </h5>
-                        
-                        <img class="img-thumbnail" src="{{ asset('storage/'.$ad->image) }}">
-                           
-            
-                      </div>
+                <div class="card" style="width: 18rem;">
+                    <img class="img-thumbnail" src="{{ asset('storage/'.$ad->image) }}">
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item"> {{ $ad->name }}</li>
+                      </ul>
+                      <p class="card-text pt-2">{{ $ad->text }}</p>
+                      <a href="#" class="card-text pt-2"> Весь текст </a>
 
-                </div>
-            </div>	
+                    </div>
+                </div>	
     	@endforeach
+
+      </div>
+
+      
+
     </div>
 	
 
 @endsection
+
+@push('styles')
+  <link rel="stylesheet" href="{{ asset('ads.css') }}">
+@endpush

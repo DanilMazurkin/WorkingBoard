@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {   
         $id = Auth::user()->id;
-        $users = User::paginate(5);
+        $users = User::paginate(4);
 
         $userdata = new UserData;
         $user = new User;
@@ -35,7 +35,6 @@ class HomeController extends Controller
         $name = $userdata->name;
 
 
-
-        return view('home', ['users' => $users, 'fio' => $fio, 'name' => $name, 'userdata' => $userdata]);
+        return view('home', ['users' => $users, 'fio' => $fio, 'name' => $name, 'userdata' => $userdata, 'user' => $user]);
     }
 }

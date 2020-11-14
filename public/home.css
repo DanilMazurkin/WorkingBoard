@@ -1,0 +1,29 @@
+.menu-button {
+	color: #FFFFFF;
+	background-color: #8BD7D2;
+}
+
+.menu-button:hover {
+	color: #FFFFFF;
+}
+
+.ad-button {
+	color: #FFFFFF;
+	background-color: #49C6E5;
+}
+
+.user-header {
+	color: #FFFFFF;
+	background-color: #00BD9D;
+}
+
+.block-info {
+	background-color: #54DEFD;
+	height: 150px;
+}
+
+.block-text {
+	color: #FFFFFF;
+	font-family: 'Nunito', sans-serif;
+	font-size: 1.6em;
+}

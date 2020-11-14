@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header text-in-login">{{ __('Login') }}</div>
+                <div class="card-header login-header text-in-login">{{ __('Login') }}</div>
 
-                <div class="card-body">
+                <div class="card-body mt-2">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -87,8 +87,8 @@
 
 
     <div class="row mt-2">
-         <div class="col-md-8 row-block">
-            <a class="btn btn-lg btn-success btn-block " href="{{ url('auth/google') }}">
+         <div class="col-md-12 row-block">
+            <a class="btn btn-lg btn-success btn-block btn-google" href="{{ url('auth/google') }}">
                  <strong>Login With Google</strong>
             </a>
          </div>
@@ -98,9 +98,7 @@
 
 @endsection
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
-@endpush
+
     
 @push('scripts')
      {!! NoCaptcha::renderJs() !!}

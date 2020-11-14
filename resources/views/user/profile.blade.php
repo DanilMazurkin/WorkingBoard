@@ -2,12 +2,18 @@
 
 @section('content')
 
-<div class="container">
+<div class="container-fluid">
 
+
+    <div class="row justify-content-center">
+        <div class="col-md-12 block-info">
+            <p class="block-text pl-5 pt-5"> Настройки профиля </p>
+        </div>
+    </div>
 
 
 	  	@if ($errors->any())
-			  <div class="alert alert-danger">
+			  <div class="alert alert-danger mt-3">
 			     <ul>
 			        @foreach ($errors->all() as $error)
 			           <li>{{ $error }}</li>
@@ -17,10 +23,6 @@
 			     @endif
 			  </div>
 		@endif
-   		
-   		@if ($fio != 0) 
-   			{{ $fio['surname'] }} {{ $fio['name'] }}  {{ $fio['patronymic'] }}
-   		@endif	
 
    		@if (isset($hasGoogle)) 
    			<div class="row">
@@ -30,12 +32,16 @@
    			</div>
    		@endif
 
-		<div class="row mt-2">
+		<div class="row justify-content-center mt-2">
 
 		    @if ($user->checkUserFromGoogle($id))
-                <img class="img-thumbnail" src="{{ $userdata->getPathAvatarUser($id) }}" alt="Card image cap">  
+		    	<div class="col-md-3">
+            	    <img class="img-thumbnail" src="{{ $userdata->getPathAvatarUser($id) }}" alt="Card image cap">  
+		 		</div>
 		   	@else
-            	<img class="img-thumbnail" src="{{ asset('storage/'.$userdata->getPathAvatarUser($id)) }}">
+		   		<div class="col-md-3">
+            		<img class="img-thumbnail" src="{{ asset('storage/'.$userdata->getPathAvatarUser($id)) }}">
+      			</div>
       		@endif
 
 
@@ -119,3 +125,7 @@
 </div>
 
 @endsection
+
+@push('styles')
+	<link rel="stylesheet" href="{{ asset('profile.css') }}">
+@endpush
