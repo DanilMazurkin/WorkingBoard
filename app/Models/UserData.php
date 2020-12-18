@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -43,7 +43,7 @@ class UserData extends Model
 
     public function user() 
     {
-        return $this->belongsTo(User::class);
+      return $this->belongsTo(User::class);
     }
 
     public function getFolderUser() 
@@ -72,12 +72,12 @@ class UserData extends Model
     private function setDefaultPathForModel() 
     {
           
-        $id = Auth::user()->id;
+      $id = Auth::user()->id;
 
-        $path = 'avatars/default/default.png';
-        UserData::updateOrInsert(['user_id' => $id], ['avatar' => $path]);
+      $path = 'avatars/default/default.png';
+      UserData::updateOrInsert(['user_id' => $id], ['avatar' => $path]);
 
-        return $path;
+      return $path;
     }
 
 
@@ -99,15 +99,17 @@ class UserData extends Model
     public function getFioUser($id) 
     {
         
-        $userdata = UserData::where('user_id', $id)->first();
+      $userdata = UserData::where('user_id', $id)->first();
            
-        if ($userdata) {
-          $fio = UserData::select(['name', 'surname', 'patronymic'])->where('user_id', $id)->first();
+      if ($userdata) {
+        $fio = UserData::select(['name', 'surname', 'patronymic'])->where('user_id', $id)->first();
           
-          if (empty($fio->name) && empty($fio->surname) && empty($fio->patronymic))
-              return 0;
-          else 
-              return ['name' => $fio->name, 'surname' => $fio->surname, "patronymic" => $fio->patronymic];
+        if (empty($fio->name) && empty($fio->surname) && empty($fio->patronymic))
+            return 0;
+        else 
+            return ['name' => $fio->name, 
+                    'surname' => $fio->surname, 
+                    "patronymic" => $fio->patronymic];
     
 
         } else 
@@ -117,7 +119,8 @@ class UserData extends Model
 
     public function setFioUser($id, $name, $surname, $patronymic) 
     {
-        UserData::updateOrInsert(['user_id' => $id], ['name' => $name, 'surname' => $surname, 
-                                                      'patronymic' => $patronymic]);
+      UserData::updateOrInsert(['user_id' => $id], ['name' => $name, 
+                                                    'surname' => $surname, 
+                                                    'patronymic' => $patronymic]);
     }
 }

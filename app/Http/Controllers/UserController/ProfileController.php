@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\File\FormAvatars;
 use App\Http\Requests\Fio\FormFio;
-use App\UserData;
+use App\Models\UserData;
 use App\User;
 use Storage;
 use Auth;

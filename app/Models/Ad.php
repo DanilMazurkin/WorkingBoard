@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
@@ -18,9 +18,9 @@ class Ad extends Model
     public function createAd($header, $text, $path = "NULL") {
     	$id = Auth::user()->id;
 
-      Ad::insert(['user_id' => $id, 'name' => $header, 'text' => $text, 'image' => $path]);	
+      Ad::insert(['user_id' => $id, 'name' => $header, 
+                  'text' => $text, 'image' => $path]);	
     }
-
 
     public function createDirectoryForAd() 
     {
@@ -43,7 +43,8 @@ class Ad extends Model
       return $directory;
    	}
 
-    public function getAdsUser($id) {
+    public function getAdsUser($id) 
+    {
         $user = User::find($id);
         $ads = $user->ads;
 
@@ -51,9 +52,11 @@ class Ad extends Model
     }
 
 
-    public function user() {
+    public function user() 
+    {
       return $this->belongsTo(User::class);
     }
+
 }
 
 
