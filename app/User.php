@@ -56,7 +56,7 @@ class User extends Authenticatable
             return false;
     }
 
-    static public function setNumberPhone($id, $phone_number) {
+    public function setNumberPhone($id, $phone_number) {
         $user = User::find($id);
 
         if (!empty($user))
@@ -66,8 +66,30 @@ class User extends Authenticatable
             return false;
     }
 
+    public function getPhoneNumberUser($id) 
+    {
+        $user = User::find($id); 
+
+        if (!empty($user)) 
+            return $user->phone_number;
+        else
+            return false;
+    }
+
+    public function getEmailUser($id) 
+    {
+
+        $user = User::find($id);
+
+        if (!empty($user))
+            return $user->email; 
+        else
+            return false;
+
+    }
+
     public function userdata() {
-        return $this->hasOne(UserData\UserData::class);
+        return $this->hasOne(UserModels\UserData::class);
     }
 
     public function ads()

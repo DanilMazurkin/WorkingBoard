@@ -37,7 +37,7 @@ Route::group(['namespace' => 'UserController'], function () {
 		Route::get('/ad', "AdController@create")->name('create_ad_form');
 		Route::post('/ad', "AdController@store")->name('store_ad_form');
 
-
+		Route::get('/getdata/{id}', "ProfileController@getDataUser")->name('get_data_user');
 
 		Route::get('/ads/{id}', "AdController@show")->name('view_ads');
 	});

@@ -90,11 +90,25 @@ class ProfileController extends Controller
 
     public function setPhoneNumber(Request $request) 
     {
-        $number_phone = $request->input('number_phone');
+        $phone_number = $request->input('number_phone');
         $id = $request->get('id');
 
-        User::setNumberPhone($id, $number_phone);
+        $user = new User;
+
+        $user->setNumberPhone($id, $phone_number);
         
         return redirect()->back();
+    }
+
+    public function getDataUser($id) 
+    {
+        $user = new User;
+        $phone_number = $user->getPhoneNumberUser($id);
+        $email = $user->getEmailUser($id);
+
+        return view('user.userdata', [
+                        'phone_number' => $phone_number,
+                        'email' => $email
+                    ]);
     }
 }

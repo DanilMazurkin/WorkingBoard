@@ -51,6 +51,11 @@
                                         <input type="hidden" value="{{ $user->id  }}"/> 
                                         <button class="btn  ad-button"> Просмотреть объявления </button>
                     </form>
+
+                     <form method="GET" action="{{ route('get_data_user', $user->id) }}">
+                                        <input type="hidden" value="{{ $user->id  }}"/> 
+                                        <button class="btn  btn-primary mt-2"> Контакты </button>
+                    </form>
                   </div>
                 </div>
 
