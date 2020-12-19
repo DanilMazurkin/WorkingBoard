@@ -74,7 +74,7 @@
 				        <div class="card mt-2">
 
 				        	<div class="card-header">
-				        		Установить ФИО
+				        		Установить Личные данные
 				        	</div>
 
 
@@ -112,7 +112,27 @@
 									    	</div>
 									    </div>
 								</form>
+
+								<form method="POST" action="{{ route('number_phone_set', 
+																['id' => Auth::user()->id ]) }}">
+									@csrf
+									<div class="row mt-2">
+									    <div class="col-md-8">
+									    	<div class="input-group input-group-sm mb-3">
+									    		<input name="number_phone" placeholder="Введите номер телефона"> 
+									    	</div>
+									    </div>
+									</div>
+
+									<div class="row mt-2">
+									    	<div class="col-md-4">
+									    		<button type="submit" class="btn btn-primary"> Установить </button>
+									    	</div>
+									</div>
+								</form>
+
 							</div>	
+     
 						</div>
 
 			        </div>
@@ -120,7 +140,6 @@
 
 			  
 		    </div>
-     
 
 </div>
 

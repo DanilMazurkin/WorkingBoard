@@ -31,10 +31,12 @@ Route::group(['namespace' => 'UserController'], function () {
 		
 		Route::get('/profile/{user}', "ProfileController@index")->name('profile');
 		Route::post('/profile', "ProfileController@setFio")->name('profile_fio');
+		Route::post('/profile/number', "ProfileController@setPhoneNumber")->name('number_phone_set');
 		Route::patch('/profile', "ProfileController@setAvatar")->name('profile_update');
-		
+
 		Route::get('/ad', "AdController@create")->name('create_ad_form');
 		Route::post('/ad', "AdController@store")->name('store_ad_form');
+
 
 
 		Route::get('/ads/{id}', "AdController@show")->name('view_ads');

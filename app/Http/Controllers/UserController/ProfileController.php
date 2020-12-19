@@ -87,4 +87,14 @@ class ProfileController extends Controller
 
         return redirect()->route('profile', ['user' => $user]);
     }
+
+    public function setPhoneNumber(Request $request) 
+    {
+        $number_phone = $request->input('number_phone');
+        $id = $request->get('id');
+
+        User::setNumberPhone($id, $number_phone);
+        
+        return redirect()->back();
+    }
 }

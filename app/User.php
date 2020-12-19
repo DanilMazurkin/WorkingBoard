@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'google_id'
+        'name', 'email', 'password', 'google_id', 'phone_number'
     ];
 
     /**
@@ -52,6 +52,16 @@ class User extends Authenticatable
 
         if (!empty($user->google_id))
             return true;
+        else
+            return false;
+    }
+
+    static public function setNumberPhone($id, $phone_number) {
+        $user = User::find($id);
+
+        if (!empty($user))
+            $user->updateOrInsert(['id' => $id], 
+                                  ['phone_number' => $phone_number]);
         else
             return false;
     }
