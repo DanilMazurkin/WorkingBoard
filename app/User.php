@@ -57,12 +57,12 @@ class User extends Authenticatable
     }
 
     public function userdata() {
-        return $this->hasOne(UserData::class);
+        return $this->hasOne(UserData\UserData::class);
     }
 
     public function ads()
     {
-      return $this->hasMany(Ad::class);
+      return $this->hasMany(UserModels\Ad::class);
     }
     
 }

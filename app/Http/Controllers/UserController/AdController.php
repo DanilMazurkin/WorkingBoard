@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use Image;
 use Storage;
 use File;
-use App\Models\Ad;
-use App\Models\UserData;
+use App\UserModels\Ad;
+use App\UserModels\UserData;
 
 
 class AdController extends Controller

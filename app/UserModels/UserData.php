@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\UserModels;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -20,10 +20,10 @@ class UserData extends Model
     public function clearImagesInUserFolder() 
     {
         
-        $directory = $this->getFolderUser();        
+      $directory = $this->getFolderUser();        
 
-        $files = Storage::disk('public')->allFiles($directory);
-        Storage::disk('public')->delete($files);
+      $files = Storage::disk('public')->allFiles($directory);
+      Storage::disk('public')->delete($files);
     } 
 
 

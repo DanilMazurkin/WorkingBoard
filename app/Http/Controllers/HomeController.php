@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\UserData;
+use App\User;
+use App\UserModels\UserData;
 use Auth;
 
 class HomeController extends Controller
