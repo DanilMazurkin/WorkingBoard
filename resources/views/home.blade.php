@@ -13,13 +13,13 @@
     <div class="row justify-content-center mt-2">
         
         <div class="col-md-6">
-            <a class="btn btn-block menu-button" href="#">
-                 <strong href="{{ route('create_ad_form') }}"> Создать объявление </strong>
+            <a class="btn btn-block menu-button" href="{{ route('create_ad_form') }}">
+                 <strong href="#"> Создать объявление </strong>
             </a>
         </div>
 
         <div class="col-md-6">
-            <a class="btn btn-block menu-button" href="#">
+            <a class="btn btn-block menu-button" href="{{ route('view_new_ads') }}">
                  <strong> Новые объявления </strong>
             </a>
         </div>

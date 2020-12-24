@@ -40,6 +40,7 @@ Route::group(['namespace' => 'UserController'], function () {
 		Route::get('/getdata/{id}', "ProfileController@getDataUser")->name('get_data_user');
 
 		Route::get('/ads/{id}', "AdController@show")->name('view_ads');
+		Route::get('/new/ads', "AdController@newAds")->name('view_new_ads');
 	});
 
 });

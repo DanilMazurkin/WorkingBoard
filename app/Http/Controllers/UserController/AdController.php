@@ -94,6 +94,13 @@ class AdController extends Controller
         //
     }
 
+    public function newAds() 
+    {
+        $ads = Ad::paginate(5);
+
+        return view('user.newads', ['ads' => $ads]);
+    }
+
     /**
      * Update the specified resource in storage.
      *
